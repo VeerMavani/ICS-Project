@@ -17,7 +17,4 @@ int totalSongs = 0;       // Total number of songs loaded
 int currentSong = -1;     // Index of currently playing song
 int isPaused = 0;         // 0 = playing, 1 = paused
 
-int main(){
-    printf("DeepK");
-    return 0;
-}
+
