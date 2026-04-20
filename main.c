@@ -145,6 +145,48 @@ void pausePlayback() {
         return;
     }
 
+
+    // Continues the paused song
+void continuePlayback() {
+    if (currentSong == -1) {
+        printf("No song to continue.\n");
+        return;
+    }
+
+    if (!isPaused) {
+        printf("Song is already playing.\n");
+        return;
+    }
+
+    isPaused = 0;
+    char filePath[200];
+    sprintf(filePath, "playlist\\%s", playlist[currentSong].title);
+    printf("Resuming: %s ...\n", playlist[currentSong].title);
+    PlaySound(filePath, NULL, SND_FILENAME | SND_ASYNC);
+}
+
+// Moves to the next song in the playlist
+void playNext() {
+    if (totalSongs == 0) {
+        printf("No songs available in the playlist.\n");
+        return;
+    }
+
+    currentSong = (currentSong + 1) % totalSongs;
+    playSong(currentSong);
+}
+
+// Moves back to the previous song
+void playPrevious() {
+    if (totalSongs == 0) {
+        printf("No songs available in the playlist.\n");
+        return;
+    }
+
+    currentSong = (currentSong - 1 + totalSongs) % totalSongs;
+    playSong(currentSong);
+}
+
     isPaused = 1;
     PlaySound(NULL, 0, 0); // stops the sound temporarily
     printf("Song paused: %s\n", playlist[currentSong].title);
