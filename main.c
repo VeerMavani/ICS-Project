@@ -144,7 +144,10 @@ void pausePlayback() {
         printf("Song is already paused.\n");
         return;
     }
-
+    isPaused = 1;
+    PlaySound(NULL, 0, 0); // stops the sound temporarily
+    printf("Song paused: %s\n", playlist[currentSong].title);
+}
 
     // Continues the paused song
 void continuePlayback() {
