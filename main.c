@@ -18,3 +18,10 @@ int currentSong = -1;     // Index of currently playing song
 int isPaused = 0;         // 0 = playing, 1 = paused
 
 
+void loadSongs();// Functions Declaraations
+void showPlaylist();
+void playSong(int index);
+void pausePlayback();
+void continuePlayback();
+void playNext();
+void playPrevious()
