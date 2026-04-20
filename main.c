@@ -93,3 +93,59 @@ int main() {
     return 0;
 }
 
+// Loads the fixed set of songs into the playlist
+void loadSongs() {
+    strcpy(playlist[0].title, "salaar.wav");
+    strcpy(playlist[1].title, "sahiba.wav");
+    strcpy(playlist[2].title, "devara.wav");
+    strcpy(playlist[3].title, "beast.wav");
+    strcpy(playlist[4].title, "animal.wav");
+    totalSongs = 5;
+}
+
+// Displays all songs in the playlist
+void showPlaylist() {
+    printf("\n------ PLAYLIST ------\n");
+    for (int i = 0; i < totalSongs; i++) {
+        if (i == currentSong && !isPaused)
+            printf("▶ %d. %s (Playing)\n", i + 1, playlist[i].title);
+        else if (i == currentSong && isPaused)
+            printf("⏸ %d. %s (Paused)\n", i + 1, playlist[i].title);
+        else
+            printf("   %d. %s\n", i + 1, playlist[i].title);
+    }
+}
+
+// Plays the selected song
+void playSong(int index) {
+    if (index < 0 || index >= totalSongs) {
+        printf("Invalid song index!\n");
+        return;
+    }
+
+    currentSong = index;
+    isPaused = 0;
+
+    char filePath[200];
+    sprintf(filePath, "playlist\\%s", playlist[index].title);
+
+    printf("Now playing: %s ...\n", playlist[index].title);
+    PlaySound(filePath, NULL, SND_FILENAME | SND_ASYNC);
+}
+
+// Pauses the current song
+void pausePlayback() {
+    if (currentSong == -1) {
+        printf("No song is currently playing.\n");
+        return;
+    }
+
+    if (isPaused) {
+        printf("Song is already paused.\n");
+        return;
+    }
+
+    isPaused = 1;
+    PlaySound(NULL, 0, 0); // stops the sound temporarily
+    printf("Song paused: %s\n", playlist[currentSong].title);
+}
